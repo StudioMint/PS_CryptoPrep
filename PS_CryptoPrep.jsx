@@ -1,8 +1,9 @@
 /*
 <javascriptresource>
-<name>$$$/JavaScripts/PS_CryptoPrep/Menu=Polestar Crypto Prep</name>
-<about>$$$/JavaScripts/PS_CryptoPrep/About=Converts cryptomattes into masks on groups.^r^rCopyright 2022 Studio Mint</about>
+<name>Polestar Crypto Prep</name>
+<about>Copyright 2022 Studio Mint</about>
 <category>Studio Mint</category>
+<enableinfo>true</enableinfo>
 </javascriptresource>
 */
 
