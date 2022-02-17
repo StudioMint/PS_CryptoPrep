@@ -15,6 +15,7 @@ app.displayDialogs = DialogModes.NO;
 
 var layerList = [];
 var namePrefix = undefined;
+var boundSize = 150000;
 
 try {
     init();
@@ -80,7 +81,8 @@ function main() {
         layerList[i].layer.remove();
         layerList[i].layer = lyrThis;
 
-        layerList[i].available = maskContentCheck();
+        layerList[i].available = maskContentCheck(boundSize);
+        if (!layerList[i].available) alert("this")
         if (!layerList[i].available) layerList[i].layer.remove();
     
     }
@@ -159,13 +161,18 @@ function selectionFromMask() {
     executeAction( idset, desc307, DialogModes.NO );
 }
 
-function maskContentCheck() {
+function maskContentCheck(size) {
     selectionFromMask();
+    var boundWidth = activeDocument.selection.bounds[2] - activeDocument.selection.bounds[0];
+    var boundHeight = activeDocument.selection.bounds[3] - activeDocument.selection.bounds[1];
     try {
-        if (activeDocument.selection.bounds[0]) {
+        if (boundWidth * boundHeight > size) {
             // There's content in the mask (even out of bounds will be checked)
             activeDocument.selection.deselect();
             return true;
+        } else {
+            activeDocument.selection.deselect();
+            return false;
         }
     } catch(e) {
         // Completely black mask
