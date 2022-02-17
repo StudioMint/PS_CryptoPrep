@@ -1,3 +1,11 @@
+/*
+<javascriptresource>
+<name>$$$/JavaScripts/PS_CryptoPrep/Menu=Polestar Crypto Prep</name>
+<about>$$$/JavaScripts/PS_CryptoPrep/About=Converts cryptomattes into masks on groups.^r^rCopyright 2022 Studio Mint</about>
+<category>Studio Mint</category>
+</javascriptresource>
+*/
+
 #target photoshop
 var scriptFolder = (new File($.fileName)).parent; // The location of this script
 
@@ -31,6 +39,7 @@ app.displayDialogs = startDisplayDialogs;
 function init() {
     
     // Preparation before running the main script
+    if (app.documents.length == 0) return alert("Needs an EXR cryptomatte file to be opened");
 
     // Add current document layers
     for (i = 0; i < activeDocument.layers.length; i++) {
