@@ -82,7 +82,6 @@ function main() {
         layerList[i].layer = lyrThis;
 
         layerList[i].available = maskContentCheck(boundSize);
-        if (!layerList[i].available) alert("this")
         if (!layerList[i].available) layerList[i].layer.remove();
     
     }
