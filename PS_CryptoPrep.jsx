@@ -25,6 +25,7 @@ app.displayDialogs = DialogModes.NO;
 var layerList = [];
 var namePrefix = undefined;
 var boundSize = 150000;
+var docBit = BitsPerChannelType.EIGHT; // BitsPerChannelType.SIXTEEN; BitsPerChannelType.THIRTYTWO;
 
 try {
     init();
@@ -65,6 +66,9 @@ function init() {
 }
 
 function main() {
+
+    activeDocument.bitsPerChannel = docBit;
+    app.purge(PurgeTarget.ALLCACHES);
 
     var grp_CryptoRaster = activeDocument.layerSets.add();
     grp_CryptoRaster.name = "Crypto Raster";
@@ -172,9 +176,9 @@ function selectionFromMask() {
 
 function maskContentCheck(size) {
     selectionFromMask();
-    var boundWidth = activeDocument.selection.bounds[2] - activeDocument.selection.bounds[0];
-    var boundHeight = activeDocument.selection.bounds[3] - activeDocument.selection.bounds[1];
     try {
+        var boundWidth = activeDocument.selection.bounds[2] - activeDocument.selection.bounds[0];
+        var boundHeight = activeDocument.selection.bounds[3] - activeDocument.selection.bounds[1];
         if (boundWidth * boundHeight > size) {
             // There's content in the mask (even out of bounds will be checked)
             activeDocument.selection.deselect();
