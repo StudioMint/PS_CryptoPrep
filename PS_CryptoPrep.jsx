@@ -73,38 +73,38 @@ function main() {
     var grp_CryptoRaster = activeDocument.layerSets.add();
     grp_CryptoRaster.name = "Crypto Raster";
     
-    for (i = layerList.length - 1; i >= 0; i--) {
-        layerList[i].layer.move(grp_CryptoRaster, ElementPlacement.INSIDE);
+    for (i_lyrs = layerList.length - 1; i_lyrs >= 0; i_lyrs--) {
+        layerList[i_lyrs].layer.move(grp_CryptoRaster, ElementPlacement.INSIDE);
     }
 
     var grp_CryptoMasks = activeDocument.layerSets.add();
     grp_CryptoMasks.name = "Crypto Masks";
-    for (i = layerList.length - 1; i >= 0; i--) {
+    for (i_lyrs = layerList.length - 1; i_lyrs >= 0; i_lyrs--) {
 
         var lyrThis = grp_CryptoMasks.layerSets.add();
-        if (namePrefix != undefined && layerList[i].name.lastIndexOf(namePrefix) != -1) {
-            lyrThis.name = layerList[i].name.substring(namePrefix.length, layerList[i].name.length);
+        if (namePrefix != undefined && layerList[i_lyrs].name.lastIndexOf(namePrefix) != -1) {
+            lyrThis.name = layerList[i_lyrs].name.substring(namePrefix.length, layerList[i_lyrs].name.length);
         } else {
-            lyrThis.name = layerList[i].name;
+            lyrThis.name = layerList[i_lyrs].name;
         }
 
-        layerList[i].layer.name = layerList[i].name + " APPLY IMAGE";
+        layerList[i_lyrs].layer.name = layerList[i_lyrs].name + " APPLY IMAGE";
         activeDocument.activeLayer = lyrThis;
         createMask();
-        applyImageMask(layerList[i].layer.name);
-        layerList[i].layer.remove();
-        layerList[i].layer = lyrThis;
+        applyImageMask(layerList[i_lyrs].layer.name);
+        layerList[i_lyrs].layer.remove();
+        layerList[i_lyrs].layer = lyrThis;
 
-        layerList[i].available = maskContentCheck(boundSize);
-        if (!layerList[i].available) layerList[i].layer.remove();
+        layerList[i_lyrs].available = maskContentCheck(boundSize);
+        if (!layerList[i_lyrs].available) layerList[i_lyrs].layer.remove();
     
     }
 
     grp_CryptoRaster.remove();
 
-    for (i = 0; i < layerList.length; i++) {
-        if (layerList[i].available) {
-            layerList[i].layer.move(grp_CryptoMasks, ElementPlacement.PLACEBEFORE);
+    for (i_lyrs = 0; i_lyrs < layerList.length; i_lyrs++) {
+        if (layerList[i_lyrs].available) {
+            layerList[i_lyrs].layer.move(grp_CryptoMasks, ElementPlacement.PLACEBEFORE);
         }
     }
 
