@@ -42,6 +42,8 @@ function init() {
     
     // Preparation before running the main script
     if (app.documents.length == 0) return alert("Needs an EXR cryptomatte file to be opened");
+    
+    activeDocument.bitsPerChannel = docBit;
 
     // Add current document layers
     for (i = 0; i < activeDocument.layers.length; i++) {
@@ -67,8 +69,7 @@ function init() {
 
 function main() {
 
-    activeDocument.bitsPerChannel = docBit;
-    app.purge(PurgeTarget.ALLCACHES);
+    //app.purge(PurgeTarget.ALLCACHES);
 
     var grp_CryptoRaster = activeDocument.layerSets.add();
     grp_CryptoRaster.name = "Crypto Raster";
