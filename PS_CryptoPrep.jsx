@@ -25,7 +25,7 @@ app.displayDialogs = DialogModes.NO;
 var layerList = [];
 var namePrefix = undefined;
 var boundSize = 150000;
-var docBit = BitsPerChannelType.EIGHT; // BitsPerChannelType.SIXTEEN; BitsPerChannelType.THIRTYTWO;
+var docBit = 8; // BitsPerChannelType.SIXTEEN; BitsPerChannelType.THIRTYTWO;
 
 try {
     init();
@@ -43,7 +43,7 @@ function init() {
     // Preparation before running the main script
     if (app.documents.length == 0) return alert("Needs an EXR cryptomatte file to be opened");
     
-    activeDocument.bitsPerChannel = docBit;
+    changeBitDepth(docBit);
 
     // Add current document layers
     for (i = 0; i < activeDocument.layers.length; i++) {
@@ -114,6 +114,16 @@ function main() {
 }
 
 // FUNCTIONS
+
+function changeBitDepth(bit) {
+    var idconvertMode = stringIDToTypeID( "convertMode" );
+        var desc3 = new ActionDescriptor();
+        var iddepth = stringIDToTypeID( "depth" );
+        desc3.putInteger( iddepth, bit );
+        var idmerge = stringIDToTypeID( "merge" );
+        desc3.putBoolean( idmerge, false );
+    executeAction( idconvertMode, desc3, DialogModes.NO );
+}
 
 function createMask() {
     var idmake = stringIDToTypeID( "make" );
